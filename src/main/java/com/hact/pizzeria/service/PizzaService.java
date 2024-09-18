@@ -20,19 +20,23 @@ public class PizzaService {
         this.pizzaRepository = pizzaRepository;
     }
 
-    public List<PizzaEntity> getAll(){
+    public List<PizzaEntity> getAll() {
         return pizzaRepository.findAll();
     }
 
-    public PizzaEntity get (Integer id){
+    public PizzaEntity get(Integer id) {
         return this.pizzaRepository.findById(id).orElse(null);
     }
 
-    public PizzaEntity save(PizzaEntity pizzaEntity){
+    public PizzaEntity save(PizzaEntity pizzaEntity) {
         return this.pizzaRepository.save(pizzaEntity);
     }
 
-    public boolean exists(Integer idPizza){
+    public void delete(Integer idPizza) {
+        this.pizzaRepository.deleteById(idPizza);
+    }
+
+    public boolean exists(Integer idPizza) {
         return this.pizzaRepository.existsById(idPizza);
     }
 }
