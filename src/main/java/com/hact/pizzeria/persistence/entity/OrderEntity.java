@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "pizza_order")
+@Table(name = "pizza_order", schema = "pizzeria")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class OrderEntity {
     @Column(name = "id_customer", nullable = false, length = 15)
     private String idCustomer;
 
-    @Column(nullable = false, columnDefinition = "DATETIME")
+    @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime date;
 
     @Column(nullable = false, columnDefinition = "decimal(6,2)")

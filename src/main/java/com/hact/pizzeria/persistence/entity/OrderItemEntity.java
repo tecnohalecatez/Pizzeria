@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "order_item", schema = "pizzeria")
 @IdClass(OrderItemId.class)
 @Getter
 @Setter

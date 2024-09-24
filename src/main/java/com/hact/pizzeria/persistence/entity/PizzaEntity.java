@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "pizza")
+@Table(name = "pizza", schema = "pizzeria")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,13 +26,13 @@ public class PizzaEntity {
     @Column(nullable = false, columnDefinition = "decimal(5,2)")
     private Double price;
 
-    @Column(columnDefinition = "TINYINT")
+    @Column(columnDefinition = "boolean")
     private Boolean vegetarian;
 
-    @Column(columnDefinition = "TINYINT")
+    @Column(columnDefinition = "boolean")
     private Boolean vegan;
 
-    @Column(columnDefinition = "TINYINT", nullable = false)
+    @Column(columnDefinition = "boolean", nullable = false)
     private Boolean available;
 
 }
