@@ -1,0 +1,1 @@
+web: java -jar -Dspring.profiles.active=pro build/libs/pizzeria-1.0.0.jar
