@@ -2,10 +2,7 @@ package com.hact.pizzeria.service;
 
 import com.hact.pizzeria.persistence.entity.PizzaEntity;
 import com.hact.pizzeria.persistence.repository.PizzaRepository;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +19,22 @@ public class PizzaService {
 
     public List<PizzaEntity> getAll() {
         return pizzaRepository.findAll();
+    }
+
+    public List<PizzaEntity> getAvailable() {
+        return pizzaRepository.findAllByAvailableTrueOrderByPrice();
+    }
+
+    public PizzaEntity getByName(String name) {
+        return pizzaRepository.findAllByAvailableTrueAndNameIgnoreCase(name);
+    }
+
+    public List<PizzaEntity> getWithout(String ingredient) {
+        return pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
+    }
+
+    public List<PizzaEntity> getWith(String ingredient) {
+        return pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
     }
 
     public PizzaEntity get(Integer id) {
