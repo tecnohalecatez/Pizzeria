@@ -3,6 +3,7 @@ package com.hact.pizzeria.web.controller;
 import com.hact.pizzeria.persistence.entity.PizzaEntity;
 import com.hact.pizzeria.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,12 @@ public class PizzaController {
         return ResponseEntity.ok(this.pizzaService.getAll());
     }
 
+    @GetMapping("/page")
+    public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "8") int elements) {
+        return ResponseEntity.ok(this.pizzaService.getAll(page, elements));
+    }
+
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> get(@PathVariable Integer idPizza) {
         return ResponseEntity.ok(this.pizzaService.get(idPizza));
@@ -32,6 +39,14 @@ public class PizzaController {
     @GetMapping("/available")
     public ResponseEntity<List<PizzaEntity>> getAvailable() {
         return ResponseEntity.ok(this.pizzaService.getAvailable());
+    }
+
+    @GetMapping("/page/available")
+    public ResponseEntity<Page<PizzaEntity>> getAvailable(@RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "8") int elements,
+                                                          @RequestParam(defaultValue = "price") String sortBy,
+                                                          @RequestParam(defaultValue = "asc") String sortDirection) {
+        return ResponseEntity.ok(this.pizzaService.getAvailable(page, elements, sortBy, sortDirection));
     }
 
     @GetMapping("/name/{name}")
