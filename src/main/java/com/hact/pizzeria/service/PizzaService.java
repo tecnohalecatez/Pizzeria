@@ -3,11 +3,14 @@ package com.hact.pizzeria.service;
 import com.hact.pizzeria.persistence.entity.PizzaEntity;
 import com.hact.pizzeria.persistence.repository.PizzaPagSortRepository;
 import com.hact.pizzeria.persistence.repository.PizzaRepository;
+import com.hact.pizzeria.service.dto.UpdatePizzaPriceDto;
+import com.hact.pizzeria.service.exception.EmailApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -69,6 +72,16 @@ public class PizzaService {
 
     public void delete(Integer idPizza) {
         this.pizzaRepository.deleteById(idPizza);
+    }
+
+    @Transactional(noRollbackFor = EmailApiException.class)
+    public void updatePizza(UpdatePizzaPriceDto updatePizza) {
+        this.pizzaRepository.updatePrice(updatePizza);
+        this.sendEmail();
+    }
+
+    public void sendEmail() {
+        throw new EmailApiException();
     }
 
     public boolean exists(Integer idPizza) {

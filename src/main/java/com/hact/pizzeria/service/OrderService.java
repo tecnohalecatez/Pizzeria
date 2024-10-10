@@ -1,9 +1,13 @@
 package com.hact.pizzeria.service;
 
 import com.hact.pizzeria.persistence.entity.OrderEntity;
+import com.hact.pizzeria.persistence.projection.OrderSummary;
 import com.hact.pizzeria.persistence.repository.OrderRepository;
+import com.hact.pizzeria.service.dto.RandomOrderDto;
+import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,5 +35,18 @@ public class OrderService {
 
     public List<OrderEntity> getOutsideOrders() {
         return orderRepository.findAllByMethodIn(List.of(DELIVERY, CARRYOUT));
+    }
+
+    public List<OrderEntity> getCustomerOrders(String idCustomer) {
+        return orderRepository.findCustomerOrders(idCustomer);
+    }
+
+    public OrderSummary getSummary(Integer orderId) {
+        return orderRepository.findSummary(orderId);
+    }
+
+    @Transactional
+    public Boolean saveRandomOrder(RandomOrderDto randomOrder) {
+        return orderRepository.saveRandomOrder(randomOrder.getIdCustomer(), randomOrder.getMethod());
     }
 }
